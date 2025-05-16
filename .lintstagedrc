@@ -1,0 +1,8 @@
+{
+  "*.{ts,js,json}": [
+    "biome check --apply"
+  ],
+  "**/*.spec.ts": [
+    "npm run test:file"
+  ]
+}
