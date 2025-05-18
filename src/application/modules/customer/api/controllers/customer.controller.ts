@@ -1,7 +1,6 @@
-// infrastructure/modules/customer/api/controllers/customer.controller.ts
 import { ICreateCustomerUseCase } from '@/domain/customer/interfaces/usecases';
 import { IListAllCustomerUseCase } from '@/domain/customer/interfaces/usecases/list-all';
-import { Body, Controller, Get, Inject, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Query, ValidationPipe } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -11,17 +10,18 @@ import {
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { CreateCustomerDto } from '../dtos/create.dto';
+import { FilterCustomerDto } from '../dtos/filter.dto';
 import { ViewCustomerDto } from '../dtos/view.dto';
 
 @ApiTags('Customer')
 @ApiBadRequestResponse({ description: 'Dados inválidos no corpo da requisição' })
 @ApiUnprocessableEntityResponse({ description: 'Erro de validação nos dados fornecidos' })
+
 @Controller('customer')
 export class CustomerController {
   constructor(
     @Inject(ICreateCustomerUseCase)
     private readonly createCustomerUseCase: ICreateCustomerUseCase,
-
     @Inject(IListAllCustomerUseCase)
     private readonly listAllCustomerUseCase: IListAllCustomerUseCase,
   ) {}
@@ -39,7 +39,7 @@ export class CustomerController {
   @Get()
   @ApiOperation({ summary: 'Lista todos os clientes' })
   @ApiOkResponse({ description: 'Lista de clientes', type: [ViewCustomerDto] })
-  async findAll(): Promise<ViewCustomerDto[]> {
-    return this.listAllCustomerUseCase.execute();
+  async findAll(@Query() filter: FilterCustomerDto): Promise<ViewCustomerDto[]> {
+    return this.listAllCustomerUseCase.execute(filter);
   }
 }

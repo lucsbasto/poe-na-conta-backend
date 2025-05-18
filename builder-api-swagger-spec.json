@@ -40,7 +40,63 @@
       },
       "get": {
         "operationId": "CustomerController_findAll",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "description": "ID único do cliente",
+            "schema": {
+              "nullable": true,
+              "example": "123e4567-e89b-12d3-a456-426614174000",
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "required": true,
+            "in": "query",
+            "description": "Nome do cliente",
+            "schema": {
+              "nullable": true,
+              "example": "Acme Corporation",
+              "type": "string"
+            }
+          },
+          {
+            "name": "createdAt",
+            "required": true,
+            "in": "query",
+            "description": "Data de criação",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "example": "2024-04-01T12:00:00Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "updatedAt",
+            "required": true,
+            "in": "query",
+            "description": "Data da última atualização",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "example": "2024-05-01T12:00:00Z",
+              "type": "string"
+            }
+          },
+          {
+            "name": "deletedAt",
+            "required": true,
+            "in": "query",
+            "description": "Data da exclusão (soft delete), ou null se não excluído",
+            "schema": {
+              "$ref": "#/components/schemas/Object"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Lista de clientes",
@@ -138,6 +194,10 @@
           "updatedAt",
           "deletedAt"
         ]
+      },
+      "Object": {
+        "type": "object",
+        "properties": {}
       }
     }
   }
