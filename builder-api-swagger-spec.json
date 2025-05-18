@@ -1,9 +1,77 @@
 {
   "openapi": "3.0.0",
-  "paths": {},
+  "paths": {
+    "/customer": {
+      "post": {
+        "operationId": "CustomerController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cliente criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewCustomerDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos no corpo da requisição"
+          },
+          "422": {
+            "description": "Erro de validação nos dados fornecidos"
+          }
+        },
+        "summary": "Cria um novo cliente",
+        "tags": [
+          "Customer"
+        ]
+      },
+      "get": {
+        "operationId": "CustomerController_findAll",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Lista de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ViewCustomerDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos no corpo da requisição"
+          },
+          "422": {
+            "description": "Erro de validação nos dados fornecidos"
+          }
+        },
+        "summary": "Lista todos os clientes",
+        "tags": [
+          "Customer"
+        ]
+      }
+    }
+  },
   "info": {
-    "title": "Builder API",
-    "description": "This is the OpenAPI specification for Builder API",
+    "title": "Põe na Conta API",
+    "description": "This is the OpenAPI specification for Põe na Conta API",
     "version": "1.0",
     "contact": {}
   },
@@ -17,6 +85,60 @@
         "type": "http"
       }
     },
-    "schemas": {}
+    "schemas": {
+      "CreateCustomerDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Acme Corporation",
+            "description": "Nome do cliente"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "ViewCustomerDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "description": "ID único do cliente"
+          },
+          "name": {
+            "type": "string",
+            "example": "Acme Corporation",
+            "description": "Nome do cliente"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-04-01T12:00:00Z",
+            "description": "Data de criação"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-05-01T12:00:00Z",
+            "description": "Data da última atualização"
+          },
+          "deletedAt": {
+            "type": "object",
+            "example": null,
+            "description": "Data da exclusão (soft delete), ou null se não excluído",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdAt",
+          "updatedAt",
+          "deletedAt"
+        ]
+      }
+    }
   }
 }

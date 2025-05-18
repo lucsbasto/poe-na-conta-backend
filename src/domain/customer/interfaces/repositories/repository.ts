@@ -1,10 +1,10 @@
-import { ICreateCustomerInput, IUpdateCustomerInput, IViewCustomerOutput } from "../dtos";
+import { Customer } from '../../entity';
+import { IViewCustomerOutput } from '../dtos';
 
-
-export interface ICustomerRepository {
-  create(input: ICreateCustomerInput): Promise<IViewCustomerOutput>;
-  update(input: IUpdateCustomerInput): Promise<IViewCustomerOutput>;
-  findAll(): Promise<IViewCustomerOutput[]>;
-  findOne(id: string): Promise<IViewCustomerOutput | null>;
-  softDelete(id: string): Promise<void>;
+export abstract class ICustomerRepository {
+  abstract create(input: Customer): Promise<IViewCustomerOutput>;
+  abstract update(id: string, input: Customer): Promise<IViewCustomerOutput | null>;
+  abstract findAll(): Promise<IViewCustomerOutput[]>;
+  abstract findOne(id: string): Promise<IViewCustomerOutput | null>;
+  abstract softDelete(id: string): Promise<void>;
 }
