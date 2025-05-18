@@ -11,20 +11,4 @@ export class FilterCustomerDto implements IFilterCustomerInput {
   @ApiProperty({ example: 'Acme Corporation', description: 'Nome do cliente', nullable: true })
   @IsOptional()
   name!: string;
-
-  @ApiProperty({ example: '2024-04-01T12:00:00Z', description: 'Data de criação', nullable: true })
-  @IsOptional()
-  createdAt!: Date;
-
-  @ApiProperty({ example: '2024-05-01T12:00:00Z', description: 'Data da última atualização', nullable: true })
-  @IsOptional()
-  updatedAt!: Date;
-
-  @ApiProperty({
-    example: null,
-    description: 'Data da exclusão (soft delete), ou null se não excluído',
-    nullable: true,
-  })
-  @IsOptional()
-  deletedAt!: Date | null;
 }

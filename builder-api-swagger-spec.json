@@ -62,42 +62,6 @@
               "example": "Acme Corporation",
               "type": "string"
             }
-          },
-          {
-            "name": "createdAt",
-            "required": false,
-            "in": "query",
-            "description": "Data de criação",
-            "schema": {
-              "format": "date-time",
-              "nullable": true,
-              "example": "2024-04-01T12:00:00Z",
-              "type": "string"
-            }
-          },
-          {
-            "name": "updatedAt",
-            "required": false,
-            "in": "query",
-            "description": "Data da última atualização",
-            "schema": {
-              "format": "date-time",
-              "nullable": true,
-              "example": "2024-05-01T12:00:00Z",
-              "type": "string"
-            }
-          },
-          {
-            "name": "deletedAt",
-            "required": false,
-            "in": "query",
-            "description": "Data da exclusão (soft delete), ou null se não excluído",
-            "schema": {
-              "format": "date-time",
-              "nullable": true,
-              "example": null,
-              "type": "string"
-            }
           }
         ],
         "responses": {

@@ -42,9 +42,6 @@ export class CustomerController {
   @ApiOkResponse({ description: 'Lista de clientes', type: [ViewCustomerDto] })
   @ApiQuery({ name: 'id', required: false, type: String })
   @ApiQuery({ name: 'name', required: false, type: String })
-  @ApiQuery({ name: 'createdAt', required: false, type: Date })
-  @ApiQuery({ name: 'updatedAt', required: false, type: Date })
-  @ApiQuery({ name: 'deletedAt', required: false, type: Date })
   async findAll(@Query() filter: FilterCustomerDto): Promise<ViewCustomerDto[]> {
     return this.listAllCustomerUseCase.execute(filter);
   }
