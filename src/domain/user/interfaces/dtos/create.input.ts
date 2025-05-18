@@ -1,6 +1,6 @@
 import { Role } from "@/domain/common/enums/role";
 
-export interface CreateUserInput {
+export interface ICreateUserInput {
   id?: string;
   email: string;
   password: string;

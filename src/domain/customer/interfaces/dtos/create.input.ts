@@ -1,4 +1,4 @@
-export interface CreateCustomerInput {
+export interface ICreateCustomerInput {
   id?: string;
   name: string;
 }

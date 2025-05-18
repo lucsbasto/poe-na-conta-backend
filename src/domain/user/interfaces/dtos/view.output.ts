@@ -1,6 +1,6 @@
 import { Role } from "@/domain/common/enums/role";
 
-export interface ViewUserOutput {
+export interface IViewUserOutput {
   id: string;
   email: string;
   role: Role;

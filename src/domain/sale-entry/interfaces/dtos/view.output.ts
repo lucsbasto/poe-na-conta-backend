@@ -1,4 +1,4 @@
-export interface ViewSaleEntryOutput {
+export interface IViewSaleEntryOutput {
   id: string;
   date: Date;
   storeId: string;

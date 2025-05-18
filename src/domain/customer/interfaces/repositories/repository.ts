@@ -1,15 +1,10 @@
-// src/domain/customer/interfaces/repositories/repository.ts
+import { ICreateCustomerInput, IUpdateCustomerInput, IViewCustomerOutput } from "../dtos";
 
-import {
-  CreateCustomerInput,
-  UpdateCustomerInput,
-  ViewCustomerOutput,
-} from '../dtos';
 
 export interface CustomerRepository {
-  create(input: CreateCustomerInput): Promise<ViewCustomerOutput>;
-  update(input: UpdateCustomerInput): Promise<ViewCustomerOutput>;
-  findAll(): Promise<ViewCustomerOutput[]>;
-  findOne(id: string): Promise<ViewCustomerOutput | null>;
+  create(input: ICreateCustomerInput): Promise<IViewCustomerOutput>;
+  update(input: IUpdateCustomerInput): Promise<IViewCustomerOutput>;
+  findAll(): Promise<IViewCustomerOutput[]>;
+  findOne(id: string): Promise<IViewCustomerOutput | null>;
   softDelete(id: string): Promise<void>;
 }

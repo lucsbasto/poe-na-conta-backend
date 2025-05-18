@@ -1,6 +1,6 @@
 import { Role } from "@/domain/common/enums/role";
 
-export interface UpdateUserInput {
+export interface IUpdateUserInput {
   id: string;
   name?: string;
   email?: string;

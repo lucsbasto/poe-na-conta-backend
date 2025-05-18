@@ -1,5 +1,5 @@
-import { CreateCustomerInput, ViewCustomerOutput } from "../dtos";
+import { ICreateCustomerInput, IViewCustomerOutput } from '../dtos';
 
-export interface ICreateCustomerUseCase {
-  execute(input: CreateCustomerInput): Promise<ViewCustomerOutput>;
+export abstract class ICreateCustomerUseCase {
+  abstract execute(input: ICreateCustomerInput): Promise<IViewCustomerOutput>;
 }

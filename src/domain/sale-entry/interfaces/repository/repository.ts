@@ -1,15 +1,15 @@
 // src/domain/sale-entry/interfaces/repositories/repository.ts
 
 import {
-  CreateSaleEntryInput,
-  UpdateSaleEntryInput,
-  ViewSaleEntryOutput,
+  ICreateSaleEntryInput,
+  IUpdateSaleEntryInput,
+  IViewSaleEntryOutput,
 } from '../dtos';
 
-export interface SaleEntryRepository {
-  create(input: CreateSaleEntryInput): Promise<ViewSaleEntryOutput>;
-  update(input: UpdateSaleEntryInput): Promise<ViewSaleEntryOutput>;
-  findAll(): Promise<ViewSaleEntryOutput[]>;
-  findOne(id: string): Promise<ViewSaleEntryOutput | null>;
+export interface ISaleEntryRepository {
+  create(input: ICreateSaleEntryInput): Promise<IViewSaleEntryOutput>;
+  update(input: IUpdateSaleEntryInput): Promise<IViewSaleEntryOutput>;
+  findAll(): Promise<IViewSaleEntryOutput[]>;
+  findOne(id: string): Promise<IViewSaleEntryOutput | null>;
   softDelete(id: string): Promise<void>;
 }

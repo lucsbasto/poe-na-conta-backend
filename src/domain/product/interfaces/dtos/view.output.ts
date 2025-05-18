@@ -1,4 +1,4 @@
-export interface ViewProductOutput {
+export interface IViewProductOutput {
   id: string;
   name: string;
   customerId: string;

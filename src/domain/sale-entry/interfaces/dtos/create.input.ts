@@ -1,4 +1,4 @@
-export interface CreateSaleEntryInput {
+export interface ICreateSaleEntryInput {
   id?: string;
   date: Date;
   storeId: string;

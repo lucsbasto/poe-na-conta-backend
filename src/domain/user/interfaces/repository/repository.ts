@@ -1,15 +1,13 @@
-// src/domain/user/interfaces/repositories/repository.ts
-
 import {
-  CreateUserInput,
-  UpdateUserInput,
-  ViewUserOutput,
+  ICreateUserInput,
+  IUpdateUserInput,
+  IViewUserOutput,
 } from '../dtos';
 
-export interface UserRepository {
-  create(input: CreateUserInput): Promise<ViewUserOutput>;
-  update(input: UpdateUserInput): Promise<ViewUserOutput>;
-  findAll(): Promise<ViewUserOutput[]>;
-  findOne(id: string): Promise<ViewUserOutput | null>;
+export interface IUserRepository {
+  create(input: ICreateUserInput): Promise<IViewUserOutput>;
+  update(input: IUpdateUserInput): Promise<IViewUserOutput>;
+  findAll(): Promise<IViewUserOutput[]>;
+  findOne(id: string): Promise<IViewUserOutput | null>;
   softDelete(id: string): Promise<void>;
 }

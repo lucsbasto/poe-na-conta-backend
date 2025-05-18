@@ -1,4 +1,4 @@
-export interface UpdateCustomerInput {
+export interface IUpdateCustomerInput {
   id: string;
   name?: string;
 }

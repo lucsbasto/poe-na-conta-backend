@@ -1,4 +1,4 @@
-export interface UpdateSaleEntryInput {
+export interface IUpdateSaleEntryInput {
   id: string;
   productId?: string;
   storeId?: string;

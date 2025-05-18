@@ -1,4 +1,4 @@
-export interface ViewStoreOutput {
+export interface IViewStoreOutput {
   id: string;
   name: string;
   customerId: string;

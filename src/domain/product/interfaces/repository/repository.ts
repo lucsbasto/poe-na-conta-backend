@@ -1,13 +1,13 @@
 import {
-  CreateProductInput,
-  UpdateProductInput,
-  ViewProductOutput,
+  ICreateProductInput,
+  IUpdateProductInput,
+  IViewProductOutput,
 } from '../dtos';
 
-export interface ProductRepository {
-  create(input: CreateProductInput): Promise<ViewProductOutput>;
-  update(input: UpdateProductInput): Promise<ViewProductOutput>;
-  findAll(): Promise<ViewProductOutput[]>;
-  findOne(id: string): Promise<ViewProductOutput | null>;
+export interface IProductRepository {
+  create(input: ICreateProductInput): Promise<IViewProductOutput>;
+  update(input: IUpdateProductInput): Promise<IViewProductOutput>;
+  findAll(): Promise<IViewProductOutput[]>;
+  findOne(id: string): Promise<IViewProductOutput | null>;
   softDelete(id: string): Promise<void>;
 }

@@ -1,4 +1,4 @@
-export interface ViewCustomerOutput {
+export interface IViewCustomerOutput {
   id: string;
   name: string;
   createdAt: Date;
