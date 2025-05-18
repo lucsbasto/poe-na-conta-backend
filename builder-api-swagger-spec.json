@@ -42,7 +42,7 @@
         "operationId": "CustomerController_findAll",
         "parameters": [],
         "responses": {
-          "201": {
+          "200": {
             "description": "Lista de clientes",
             "content": {
               "application/json": {
