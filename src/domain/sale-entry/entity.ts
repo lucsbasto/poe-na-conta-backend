@@ -1,27 +1,39 @@
+import { UniqueEntityID } from "@/common/helpers/uuid";
+import { ICreateSaleEntryInput } from "./interfaces/dtos";
+
 export class SaleEntry {
-  constructor(
-    public readonly id: string,
-    public readonly date: Date,
-    public readonly storeId: string,
-    public readonly productId: string,
-    public readonly createdByUserId: string,
-    public quantitySold: number,
-    public quantityUnsold: number,
-    public unitCost: number,
-    public quantitySentToStore: number,
-    public salePrice: number
-  ) {
-    if (quantitySold + quantityUnsold > quantitySentToStore) {
-      throw new Error('Total vendido + não vendido não pode ser maior que a quantidade enviada.');
-    }
-  }
+  public readonly id: string;
+  public readonly date: Date;
+  public readonly storeId: string;
+  public readonly productId: string;
+  public readonly createdBy: string;
+  public quantitySold: number;
+  public quantityReturned: number;
+  public unitCost: number;
+  public quantitySentToStore: number;
+  public salePrice: number;
 
-  updateQuantities(sold: number, unsold: number) {
-    if (sold + unsold > this.quantitySentToStore) {
-      throw new Error('Total vendido + não vendido não pode exceder a quantidade enviada.');
-    }
-
-    this.quantitySold = sold;
-    this.quantityUnsold = unsold;
+  constructor({
+    id,
+    date,
+    storeId,
+    productId,
+    createdBy,
+    quantitySold,
+    quantityReturned,
+    unitCost,
+    quantitySentToStore,
+    salePrice,
+  }: ICreateSaleEntryInput) {
+    this.id = id ?? UniqueEntityID.create();
+    this.date = date;
+    this.storeId = storeId;
+    this.productId = productId;
+    this.createdBy = createdBy;
+    this.quantitySold = quantitySold;
+    this.quantityReturned = quantityReturned;
+    this.unitCost = unitCost;
+    this.quantitySentToStore = quantitySentToStore;
+    this.salePrice = salePrice;
   }
 }

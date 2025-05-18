@@ -1,7 +1,7 @@
 import { ICreateCustomerInput, IUpdateCustomerInput, IViewCustomerOutput } from "../dtos";
 
 
-export interface CustomerRepository {
+export interface ICustomerRepository {
   create(input: ICreateCustomerInput): Promise<IViewCustomerOutput>;
   update(input: IUpdateCustomerInput): Promise<IViewCustomerOutput>;
   findAll(): Promise<IViewCustomerOutput[]>;

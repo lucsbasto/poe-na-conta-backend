@@ -1,5 +1,5 @@
 import { ICreateUserInput, IViewUserOutput } from '../dtos';
 
-export abstract class CreateUserUseCase {
+export abstract class ICreateUserUseCase {
   abstract execute(input: ICreateUserInput): Promise<IViewUserOutput>;
 }

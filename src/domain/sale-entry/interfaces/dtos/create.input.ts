@@ -3,9 +3,9 @@ export interface ICreateSaleEntryInput {
   date: Date;
   storeId: string;
   productId: string;
-  createdByUserId: string;
+  createdBy: string;
   quantitySold: number;
-  quantityUnsold: number;
+  quantityReturned: number;
   unitCost: number;
   quantitySentToStore: number;
   salePrice: number;

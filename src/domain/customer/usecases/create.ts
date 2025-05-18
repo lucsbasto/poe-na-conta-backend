@@ -1,13 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { Customer } from '../entity';
 import { ICreateCustomerInput, IViewCustomerOutput } from '../interfaces/dtos';
-import { CustomerRepository } from '../interfaces/repositories/repository';
-import { ICreateCustomerUseCase } from '../interfaces/usecases';
+import { ICustomerRepository } from '../interfaces/repositories/repository';
+import { ICreateCustomerUseCase } from '../interfaces/usecases/create';
 
 @Injectable()
 export class CreateCustomerService implements ICreateCustomerUseCase {
-  constructor(private readonly repository: CustomerRepository) {}
+  constructor(private readonly repository: ICustomerRepository) {}
 
   async execute(input: ICreateCustomerInput): Promise<IViewCustomerOutput> {
-    return this.repository.create(input);
+    const customer = new Customer(input);
+
+    const created = await this.repository.create(customer);
+
+    return created;
   }
 }

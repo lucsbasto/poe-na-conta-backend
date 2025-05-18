@@ -1,12 +1,18 @@
 import type { JSONValue } from '../types/json.type';
 
-export interface ILoggerService {
-  idempotencyKey: string;
-  contextName: string;
-  setContext(context: string): void;
-  error(message: string, stackTrace?: unknown, mask?: boolean): void;
-  warn(message: string): void;
-  info(message: string): void;
-  debug(message: string, details?: JSONValue): void;
-  log(message: string): void;
+export abstract class ILoggerService {
+  abstract idempotencyKey: string;
+  abstract contextName: string;
+
+  abstract setContext(context: string): void;
+
+  abstract error(message: string, stackTrace?: unknown, mask?: boolean): void;
+
+  abstract warn(message: string): void;
+
+  abstract info(message: string): void;
+
+  abstract debug(message: string, details?: JSONValue): void;
+
+  abstract log(message: string): void;
 }

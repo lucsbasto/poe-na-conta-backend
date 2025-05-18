@@ -1,24 +1,25 @@
+import { UniqueEntityID } from "@/common/helpers/uuid";
 import { Role } from "../common/enums/role";
+import { ICreateUserInput } from "./interfaces/dtos";
 
 export class User {
-  constructor(
-    public readonly id: string,
-    public email: string,
-    private passwordHash: string,
-    public readonly storeId: string,
-    public readonly customerId: string,
-    public role: Role
-  ) {}
+  public readonly id: string;
+  public name: string;
+  public readonly email: string;
+  public readonly password: string;
+  public readonly customerId: string;
+  public role: Role;
 
-  updatePassword(newHash: string) {
-    this.passwordHash = newHash;
+  constructor({ id, name, email, customerId, role, password }: ICreateUserInput) {
+    this.id = id ?? UniqueEntityID.create();
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.customerId = customerId;
+    this.role = role;
   }
 
-  checkPassword(hash: string): boolean {
-    return this.passwordHash === hash;
-  }
-
-  promoteTo(role: Role) {
+  changeRole(role: Role) {
     this.role = role;
   }
 }
