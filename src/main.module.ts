@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerModule } from './common/logger/logger.module';
-import { SayHelloUseCase } from './domain/say-hello/usecases/say-hello.use-case';
-import { HelloController } from './infrastructure/http/say-hello/hello.controller';
 
 @Module({
   imports: [
@@ -12,7 +10,7 @@ import { HelloController } from './infrastructure/http/say-hello/hello.controlle
       envFilePath: '.env',
     }),
   ],
-  controllers: [HelloController],
-  providers: [SayHelloUseCase],
+  controllers: [],
+  providers: [],
 })
 export class MainModule {}
