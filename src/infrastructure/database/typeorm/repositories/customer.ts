@@ -1,5 +1,5 @@
 import { Customer } from '@/domain/customer/entity';
-import { IViewCustomerOutput } from '@/domain/customer/interfaces/dtos';
+import { IFilterCustomerInput, IViewCustomerOutput } from '@/domain/customer/interfaces/dtos';
 import { ICustomerRepository } from '@/domain/customer/interfaces/repositories/repository';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -29,8 +29,8 @@ export class CustomerRepository implements ICustomerRepository {
     return this.repository.findOne({ where: { id } });
   }
 
-  async findAll(): Promise<IViewCustomerOutput[]> {
-    return this.repository.find();
+  async findAll(filter: IFilterCustomerInput): Promise<IViewCustomerOutput[]> {
+    return this.repository.find({ where: filter });
   }
 
   async softDelete(id: string): Promise<void> {

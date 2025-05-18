@@ -43,7 +43,7 @@
         "parameters": [
           {
             "name": "id",
-            "required": true,
+            "required": false,
             "in": "query",
             "description": "ID único do cliente",
             "schema": {
@@ -54,7 +54,7 @@
           },
           {
             "name": "name",
-            "required": true,
+            "required": false,
             "in": "query",
             "description": "Nome do cliente",
             "schema": {
@@ -65,7 +65,7 @@
           },
           {
             "name": "createdAt",
-            "required": true,
+            "required": false,
             "in": "query",
             "description": "Data de criação",
             "schema": {
@@ -77,7 +77,7 @@
           },
           {
             "name": "updatedAt",
-            "required": true,
+            "required": false,
             "in": "query",
             "description": "Data da última atualização",
             "schema": {
@@ -89,11 +89,14 @@
           },
           {
             "name": "deletedAt",
-            "required": true,
+            "required": false,
             "in": "query",
             "description": "Data da exclusão (soft delete), ou null se não excluído",
             "schema": {
-              "$ref": "#/components/schemas/Object"
+              "format": "date-time",
+              "nullable": true,
+              "example": null,
+              "type": "string"
             }
           }
         ],
@@ -194,10 +197,6 @@
           "updatedAt",
           "deletedAt"
         ]
-      },
-      "Object": {
-        "type": "object",
-        "properties": {}
       }
     }
   }
