@@ -40,9 +40,32 @@
       },
       "get": {
         "operationId": "CustomerController_findAll",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "required": false,
+            "in": "query",
+            "description": "ID único do cliente",
+            "schema": {
+              "nullable": true,
+              "example": "123e4567-e89b-12d3-a456-426614174000",
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "Nome do cliente",
+            "schema": {
+              "nullable": true,
+              "example": "Acme Corporation",
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
-          "201": {
+          "200": {
             "description": "Lista de clientes",
             "content": {
               "application/json": {
