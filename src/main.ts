@@ -22,6 +22,8 @@ async function bootstrap() {
 
   setupSecurity(app, configService);
 
+  app.setGlobalPrefix('api');
+
   await app.listen(port ?? 3000).then(() => {
     logger.info(`Http server listening at port: ${port}`);
   });

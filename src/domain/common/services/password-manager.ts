@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export class PasswordManager {
   private static readonly SALT_ROUNDS = 12;
@@ -7,10 +7,7 @@ export class PasswordManager {
     return bcrypt.hash(plainPassword, PasswordManager.SALT_ROUNDS);
   }
 
-  static async comparePassword(
-    plainPassword: string,
-    hashedPassword: string,
-  ): Promise<boolean> {
+  static async comparePassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
     return bcrypt.compare(plainPassword, hashedPassword);
   }
 }

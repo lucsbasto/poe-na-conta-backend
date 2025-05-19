@@ -18,7 +18,7 @@ import { ViewCustomerDto } from '../dtos/view.dto';
 @ApiBadRequestResponse({ description: 'Dados inválidos no corpo da requisição' })
 @ApiUnprocessableEntityResponse({ description: 'Erro de validação nos dados fornecidos' })
 
-@Controller('customer')
+@Controller('customers')
 export class CustomerController {
   constructor(
     @Inject(ICreateCustomerUseCase)

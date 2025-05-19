@@ -19,7 +19,7 @@ import { ViewUserDto } from '../dtos/view.dto';
 @ApiUnprocessableEntityResponse({ description: 'Erro de validação nos dados fornecidos' })
 
 @Controller('users')
-export class CustomerController {
+export class UserController {
   constructor(
     @Inject(ICreateUserUseCase)
     private readonly createUserUseCase: ICreateUserUseCase,

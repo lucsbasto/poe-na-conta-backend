@@ -25,7 +25,7 @@ export class UserEntity extends DefaultEntity {
   )
   saleEntry!: SaleEntryEntity;
 
-  @Column()
+  @Column({ name: 'customer_id' })
   customerId!: string;
 
   @ManyToOne(
