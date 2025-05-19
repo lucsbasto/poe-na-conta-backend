@@ -1,6 +1,6 @@
-import { UniqueEntityID } from "@/common/helpers/uuid";
-import { Role } from "../common/enums/role";
-import { ICreateUserInput } from "./interfaces/dtos";
+import { UniqueEntityID } from '@/common/helpers/uuid';
+import { Role } from '../common/enums/role';
+import { ICreateUserInput } from './interfaces/dtos';
 
 export class User {
   public readonly id: string;

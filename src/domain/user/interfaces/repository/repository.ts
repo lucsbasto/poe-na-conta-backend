@@ -1,13 +1,11 @@
-import {
-  ICreateUserInput,
-  IUpdateUserInput,
-  IViewUserOutput,
-} from '../dtos';
+import { User } from '../../entity';
+import { IViewUserOutput } from '../dtos';
+import { IFilterUserInput } from '../dtos/filter.input';
 
-export interface IUserRepository {
-  create(input: ICreateUserInput): Promise<IViewUserOutput>;
-  update(input: IUpdateUserInput): Promise<IViewUserOutput>;
-  findAll(): Promise<IViewUserOutput[]>;
-  findOne(id: string): Promise<IViewUserOutput | null>;
-  softDelete(id: string): Promise<void>;
+export abstract class IUserRepository {
+  abstract create(input: User): Promise<IViewUserOutput>;
+  abstract update(id: String, input: User): Promise<IViewUserOutput | null>;
+  abstract findAll(filter: IFilterUserInput): Promise<IViewUserOutput[]>;
+  abstract findOne(id: string): Promise<IViewUserOutput | null>;
+  abstract softDelete(id: string): Promise<void>;
 }
