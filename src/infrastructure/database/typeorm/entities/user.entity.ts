@@ -5,18 +5,22 @@ import { DefaultEntity } from './default.entity';
 import { SaleEntryEntity } from './sale-entry.entity';
 
 @Entity('users')
-@Index(['email'])
 export class UserEntity extends DefaultEntity {
   @Column()
   name!: string;
 
   @Column({ unique: true })
+  @Index()
   email!: string;
 
   @Column()
   password!: string;
 
+  @Column({ default: true, nullable: false, type: 'boolean' })
+  isActive!: boolean;
+
   @Column({ type: 'enum', enum: Role })
+  @Index()
   role!: Role;
 
   @OneToMany(
@@ -26,6 +30,7 @@ export class UserEntity extends DefaultEntity {
   saleEntry!: SaleEntryEntity;
 
   @Column({ name: 'customer_id' })
+  @Index()
   customerId!: string;
 
   @ManyToOne(

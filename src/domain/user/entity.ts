@@ -9,11 +9,12 @@ export class User {
   public readonly password: string;
   public readonly customerId: string;
   public role: Role;
+  public readonly isActive: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public readonly deletedAt!: Date | null;
 
-  constructor({ id, name, email, customerId, role, password, createdAt, updatedAt, deletedAt }: IUserInput) {
+  constructor({ id, name, email, customerId, role, password, createdAt, updatedAt, deletedAt, isActive }: IUserInput) {
     this.id = id ?? UniqueEntityID.create();
     this.name = name;
     this.email = email;
@@ -23,6 +24,7 @@ export class User {
     this.createdAt = createdAt ?? new Date();
     this.updatedAt = updatedAt ?? new Date();
     this.deletedAt = deletedAt ?? null;
+    this.isActive = isActive ?? true;
   }
 
   changeRole(role: Role) {

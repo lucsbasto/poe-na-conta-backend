@@ -211,6 +211,44 @@
           "Users"
         ]
       }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "AuthController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInInputDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário logado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignInResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos no corpo da requisição"
+          },
+          "422": {
+            "description": "Erro de validação nos dados fornecidos"
+          }
+        },
+        "summary": "Realiza o login de um usuário",
+        "tags": [
+          "auth"
+        ]
+      }
     }
   },
   "info": {
@@ -386,6 +424,90 @@
           "createdAt",
           "updatedAt",
           "deletedAt"
+        ]
+      },
+      "SignInInputDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@email.com",
+            "description": "Email do usuário"
+          },
+          "password": {
+            "type": "string",
+            "example": "Senha@123",
+            "description": "Senha do usuário (mínimo 6 caracteres)"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "UserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "1e9dfb8a-7152-4104-83ac-7723cc8ef258"
+          },
+          "email": {
+            "type": "string",
+            "example": "lucas@example.com"
+          },
+          "name": {
+            "type": "string",
+            "example": "Lucas Teste"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "ADMIN",
+              "MANAGER",
+              "SELLER"
+            ],
+            "example": "ADMIN"
+          },
+          "customerId": {
+            "type": "string",
+            "example": "abc123"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "name",
+          "role",
+          "customerId"
+        ]
+      },
+      "SignInResponseDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxZTlkZmI4YS03MTUyLTQxMDQtODNhYy03NzIzY2M4ZWY3MjUiLCJlbWFpbCI6ImFkbWluQG1pbmVpcm8uY29tIiwibmFtZSI6IkFkbWluIiwicm9sZSI6IkFETUlOIiwiY3VzdG9tZXJJZCI6ImM0ZjQ2YzQwLTFkNzUtNGJiYy04OTJmLTBiZjI4ZGVhZmZmZSIsImlhdCI6MTc0NzY5Nzg5OCwiZXhwIjoxNzUwMjg5ODk4fQ.tuP1uRcABylfrTNwX7bwQ5gAp6rIpwpzoPdsDRx5Wos\"",
+            "description": "Token de acesso do usuário"
+          },
+          "expiresIn": {
+            "type": "number",
+            "example": 3600,
+            "description": "Tempo de expiração do token em segundos"
+          },
+          "user": {
+            "description": "Informações do usuário",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "token",
+          "expiresIn",
+          "user"
         ]
       }
     }

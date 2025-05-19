@@ -1,5 +1,5 @@
 import { Role } from '@/domain/common/enums/role';
-import { ICreateUserInput } from '@/domain/user/interfaces/dtos';
+import type { ICreateUserInput } from '@/domain/user/interfaces/dtos';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsEnum, IsNotEmpty, IsString, IsUUID, Matches, MaxLength, MinLength } from 'class-validator';
 

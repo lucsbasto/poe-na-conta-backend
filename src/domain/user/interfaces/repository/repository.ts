@@ -7,5 +7,6 @@ export abstract class IUserRepository {
   abstract update(id: String, input: User): Promise<UserEntity | null>;
   abstract findAll(filter?: IFilterUserInput): Promise<UserEntity[]>;
   abstract findOne(id: string): Promise<UserEntity | null>;
+  abstract findByEmail(email: string): Promise<UserEntity | null>;
   abstract softDelete(id: string): Promise<void>;
 }

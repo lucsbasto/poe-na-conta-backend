@@ -26,5 +26,6 @@ import { UserController } from './api/controller/user.controller';
       useClass: ListAllUserUseCase,
     },
   ],
+  exports: [IUserRepository, TypeOrmModule],
 })
 export class UserModule {}

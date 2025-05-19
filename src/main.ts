@@ -1,12 +1,14 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
+import * as dotenv from 'dotenv';
 import { setupGlobalPipes } from './common/handlers/global-pipes.handler';
 import { setupSecurity } from './common/handlers/secutiry.handler';
 import { setupSwagger } from './common/handlers/swagger.handler';
 import { ApiResponseInterceptor } from './common/interceptors/api-response.interceptor';
 import { LoggerService } from './common/logger/logger.service';
 import { MainModule } from './main.module';
+dotenv.config();
 
 async function bootstrap() {
   const appLogger = new LoggerService();

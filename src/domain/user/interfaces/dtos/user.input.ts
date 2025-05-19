@@ -6,6 +6,7 @@ export interface IUserInput {
   password: string;
   email: string;
   role: Role;
+  isActive?: boolean;
   customerId: string;
   createdAt?: Date;
   updatedAt?: Date;
