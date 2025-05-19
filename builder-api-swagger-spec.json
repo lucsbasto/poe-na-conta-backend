@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/customer": {
+    "/customers": {
       "post": {
         "operationId": "CustomerController_create",
         "parameters": [],
@@ -90,6 +90,127 @@
           "Customer"
         ]
       }
+    },
+    "/users": {
+      "post": {
+        "operationId": "UserController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewUserDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos no corpo da requisição"
+          },
+          "422": {
+            "description": "Erro de validação nos dados fornecidos"
+          }
+        },
+        "summary": "Cria um novo usuário",
+        "tags": [
+          "Users"
+        ]
+      },
+      "get": {
+        "operationId": "UserController_findAll",
+        "parameters": [
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "Filtrar por nome do usuário",
+            "schema": {
+              "example": "jorge",
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "required": false,
+            "in": "query",
+            "description": "Filtrar por e-mail do usuário",
+            "schema": {
+              "example": "jorge@email.com",
+              "type": "string"
+            }
+          },
+          {
+            "name": "role",
+            "required": false,
+            "in": "query",
+            "description": "Filtrar por perfil do usuário",
+            "schema": {
+              "example": "SELLER",
+              "type": "string",
+              "enum": [
+                "ADMIN",
+                "MANAGER",
+                "SELLER"
+              ]
+            }
+          },
+          {
+            "name": "customerId",
+            "required": false,
+            "in": "query",
+            "description": "Filtrar por ID do cliente (customer)",
+            "schema": {
+              "example": "34ad503d-2141-464f-847d-aa567df64586",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ViewUserDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos no corpo da requisição"
+          },
+          "422": {
+            "description": "Erro de validação nos dados fornecidos"
+          }
+        },
+        "summary": "Lista todos os clientes",
+        "tags": [
+          "Users"
+        ]
+      }
     }
   },
   "info": {
@@ -157,6 +278,111 @@
         "required": [
           "id",
           "name",
+          "createdAt",
+          "updatedAt",
+          "deletedAt"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@email.com",
+            "description": "Email do usuário"
+          },
+          "password": {
+            "type": "string",
+            "example": "Senha@123",
+            "description": "Senha do usuário (mínimo 6 caracteres)"
+          },
+          "role": {
+            "type": "string",
+            "example": "SELLER",
+            "enum": [
+              "ADMIN",
+              "MANAGER",
+              "SELLER"
+            ],
+            "description": "Perfil de acesso"
+          },
+          "customerId": {
+            "type": "string",
+            "example": "3507d8b5-ed0f-45bd-b2e1-7b539259069e",
+            "description": "Id do customer"
+          },
+          "name": {
+            "type": "string",
+            "example": "Jorge Gustavo",
+            "description": "Nome do usuário"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "role",
+          "customerId",
+          "name"
+        ]
+      },
+      "ViewUserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "d27448f7-c8de-4d1a-95d2-1edff1a47277",
+            "description": "ID do usuário"
+          },
+          "name": {
+            "type": "string",
+            "example": "Jorge Gustavo",
+            "description": "Nome do usuário"
+          },
+          "email": {
+            "type": "string",
+            "example": "jorge@email.com",
+            "description": "E-mail do usuário"
+          },
+          "role": {
+            "type": "string",
+            "example": "SELLER",
+            "enum": [
+              "ADMIN",
+              "MANAGER",
+              "SELLER"
+            ],
+            "description": "Perfil do usuário"
+          },
+          "customerId": {
+            "type": "string",
+            "example": "34ad503d-2141-464f-847d-aa567df64586",
+            "description": "ID do cliente (customer)"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-05-18T14:34:00.000Z",
+            "description": "Data de criação"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-05-18T14:34:00.000Z",
+            "description": "Data da última atualização"
+          },
+          "deletedAt": {
+            "type": "object",
+            "example": "2025-05-18T14:34:00.000Z",
+            "description": "Data da última atualização",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "role",
+          "customerId",
           "createdAt",
           "updatedAt",
           "deletedAt"

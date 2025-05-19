@@ -25,6 +25,9 @@ export class UserEntity extends DefaultEntity {
   )
   saleEntry!: SaleEntryEntity;
 
+  @Column({ name: 'customer_id' })
+  customerId!: string;
+
   @ManyToOne(
     () => CustomerEntity,
     (customer) => customer.users,
