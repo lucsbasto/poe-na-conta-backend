@@ -10,7 +10,7 @@ export function setupSecurity(app: NestExpressApplication, configService: Config
 }
 
 function setupCors(app: NestExpressApplication, configService: ConfigService): void {
-  const corsEnabled = configService.get<boolean>('CORS_ENABLED') === true;
+  const corsEnabled = configService.get<boolean>('CORS_ENABLED') ?? false;
 
   if (!corsEnabled) return;
 
