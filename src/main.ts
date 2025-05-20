@@ -1,6 +1,5 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import * as dotenv from 'dotenv';
 import { setupGlobalPipes } from './common/handlers/global-pipes.handler';
 import { setupSecurity } from './common/handlers/secutiry.handler';
@@ -13,9 +12,12 @@ dotenv.config();
 async function bootstrap() {
   const appLogger = new LoggerService();
 
-  const app = await NestFactory.create<NestFastifyApplication>(MainModule, {
+  const app = await NestFactory.create(MainModule, {
     logger: appLogger,
   });
+  const expressApp = app.getHttpAdapter().getInstance();
+
+  expressApp.set('trust proxy', 1);
 
   app.useGlobalInterceptors(new ApiResponseInterceptor());
 
@@ -26,7 +28,7 @@ async function bootstrap() {
   setupGlobalPipes(app);
   setupSwagger(app);
 
-  setupSecurity(app, configService);
+  await setupSecurity(app, configService);
 
   app.setGlobalPrefix('api');
 
