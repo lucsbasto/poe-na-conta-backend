@@ -1,6 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import type { NestExpressApplication } from '@nestjs/platform-express';
+import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import * as dotenv from 'dotenv';
 import { setupGlobalPipes } from './common/handlers/global-pipes.handler';
 import { setupSecurity } from './common/handlers/secutiry.handler';
@@ -13,7 +13,7 @@ dotenv.config();
 async function bootstrap() {
   const appLogger = new LoggerService();
 
-  const app = await NestFactory.create<NestExpressApplication>(MainModule, {
+  const app = await NestFactory.create<NestFastifyApplication>(MainModule, {
     logger: appLogger,
   });
 
