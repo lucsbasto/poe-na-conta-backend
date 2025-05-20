@@ -1,22 +1,19 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import * as dotenv from 'dotenv';
-import fastify from 'fastify';
 import { setupGlobalPipes } from './common/handlers/global-pipes.handler';
 import { setupSecurity } from './common/handlers/secutiry.handler';
 import { setupSwagger } from './common/handlers/swagger.handler';
 import { ApiResponseInterceptor } from './common/interceptors/api-response.interceptor';
 import { LoggerService } from './common/logger/logger.service';
 import { MainModule } from './main.module';
-
 dotenv.config();
-const server = fastify();
 
 async function bootstrap() {
   const appLogger = new LoggerService();
 
-  const app = await NestFactory.create<NestFastifyApplication>(MainModule, new FastifyAdapter(server), {
+  const app = await NestFactory.create<NestExpressApplication>(MainModule, {
     logger: appLogger,
   });
 
