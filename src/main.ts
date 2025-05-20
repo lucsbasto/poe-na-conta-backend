@@ -1,21 +1,21 @@
+// src/main.ts
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import type { NestExpressApplication } from '@nestjs/platform-express';
-import * as dotenv from 'dotenv';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { setupGlobalPipes } from './common/handlers/global-pipes.handler';
 import { setupSecurity } from './common/handlers/secutiry.handler';
 import { setupSwagger } from './common/handlers/swagger.handler';
 import { ApiResponseInterceptor } from './common/interceptors/api-response.interceptor';
 import { LoggerService } from './common/logger/logger.service';
 import { MainModule } from './main.module';
-dotenv.config();
+
+// Fastify instance não é usada diretamente mais
+let app: NestFastifyApplication;
 
 async function bootstrap() {
   const appLogger = new LoggerService();
 
-  const app = await NestFactory.create<NestExpressApplication>(MainModule, {
-    logger: appLogger,
-  });
+  app = await NestFactory.create<NestFastifyApplication>(MainModule, new FastifyAdapter(), { logger: appLogger });
 
   app.useGlobalInterceptors(new ApiResponseInterceptor());
 
@@ -25,13 +25,23 @@ async function bootstrap() {
 
   setupGlobalPipes(app);
   setupSwagger(app);
-
   setupSecurity(app, configService);
 
   app.setGlobalPrefix('api');
 
-  await app.listen(port ?? 3000).then(() => {
-    logger.info(`Http server listening at port: ${port}`);
-  });
+  await app.init(); // ⚠️ Não use app.listen() no Vercel
+
+  logger.info(`NestJS app initialized on port ${port}`);
 }
+
 bootstrap();
+
+// ⚠️ Esta é a parte fundamental para o Vercel funcionar
+module.exports = async (req: any, res: any) => {
+  if (!app) {
+    await bootstrap();
+  }
+
+  await app.init(); // garante que o app está pronto
+  app.getHttpAdapter().getHttpServer()(req, res); // proxy do handler fastify
+};
