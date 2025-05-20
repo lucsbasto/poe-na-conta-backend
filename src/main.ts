@@ -1,17 +1,12 @@
-// src/main.ts
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
-import crypto from 'crypto';
 import { setupGlobalPipes } from './common/handlers/global-pipes.handler';
 import { setupSecurity } from './common/handlers/secutiry.handler';
 import { setupSwagger } from './common/handlers/swagger.handler';
 import { ApiResponseInterceptor } from './common/interceptors/api-response.interceptor';
 import { LoggerService } from './common/logger/logger.service';
 import { MainModule } from './main.module';
-// @ts-ignore
-global.crypto = crypto;
 
 // Fastify instance não é usada diretamente mais
 let app: NestFastifyApplication;
