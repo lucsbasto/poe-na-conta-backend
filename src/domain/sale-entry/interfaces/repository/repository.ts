@@ -1,15 +1,12 @@
 // src/domain/sale-entry/interfaces/repositories/repository.ts
 
-import {
-  ICreateSaleEntryInput,
-  IUpdateSaleEntryInput,
-  IViewSaleEntryOutput,
-} from '../dtos';
+import { SaleEntryEntity } from '@/infrastructure/database/typeorm/entities/sale-entry.entity';
+import { IFilterSaleEntryInput } from '../dtos/filter.input';
 
-export interface ISaleEntryRepository {
-  create(input: ICreateSaleEntryInput): Promise<IViewSaleEntryOutput>;
-  update(input: IUpdateSaleEntryInput): Promise<IViewSaleEntryOutput>;
-  findAll(): Promise<IViewSaleEntryOutput[]>;
-  findOne(id: string): Promise<IViewSaleEntryOutput | null>;
-  softDelete(id: string): Promise<void>;
+export abstract class ISaleEntryRepository {
+  abstract create(input: SaleEntryEntity): Promise<SaleEntryEntity>;
+  abstract update(input: SaleEntryEntity): Promise<SaleEntryEntity | null>;
+  abstract findAll(filter?: IFilterSaleEntryInput): Promise<SaleEntryEntity[]>;
+  abstract findOne(id: string): Promise<SaleEntryEntity | null>;
+  abstract softDelete(id: string): Promise<void>;
 }

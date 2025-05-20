@@ -3,7 +3,7 @@ export interface IViewSaleEntryOutput {
   date: Date;
   storeId: string;
   productId: string;
-  createdByUserId: string;
+  createdBy: string;
   quantitySold: number;
   quantityUnsold: number;
   unitCost: number;

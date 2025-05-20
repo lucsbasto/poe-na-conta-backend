@@ -24,6 +24,15 @@ export class SaleEntryEntity extends DefaultEntity {
   @JoinColumn({ name: 'product_id' })
   product!: ProductEntity;
 
+  @Column({ name: 'store_id', type: 'varchar' })
+  storeId!: string;
+
+  @Column({ name: 'product_id', type: 'varchar' })
+  productId!: string;
+
+  @Column({ name: 'created_by', type: 'varchar' })
+  createdById!: string;
+
   @ManyToOne(
     () => UserEntity,
     (user) => user.saleEntry,

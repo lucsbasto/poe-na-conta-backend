@@ -1,27 +1,27 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/customers": {
+    "/auth/login": {
       "post": {
-        "operationId": "CustomerController_create",
+        "operationId": "AuthController_create",
         "parameters": [],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateCustomerDto"
+                "$ref": "#/components/schemas/SignInInputDto"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Cliente criado com sucesso",
+            "description": "Usuário logado com sucesso",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ViewCustomerDto"
+                  "$ref": "#/components/schemas/SignInResponseDto"
                 }
               }
             }
@@ -33,61 +33,9 @@
             "description": "Erro de validação nos dados fornecidos"
           }
         },
-        "summary": "Cria um novo cliente",
+        "summary": "Realiza o login de um usuário",
         "tags": [
-          "Customer"
-        ]
-      },
-      "get": {
-        "operationId": "CustomerController_findAll",
-        "parameters": [
-          {
-            "name": "id",
-            "required": false,
-            "in": "query",
-            "description": "ID único do cliente",
-            "schema": {
-              "nullable": true,
-              "example": "123e4567-e89b-12d3-a456-426614174000",
-              "type": "string"
-            }
-          },
-          {
-            "name": "name",
-            "required": false,
-            "in": "query",
-            "description": "Nome do cliente",
-            "schema": {
-              "nullable": true,
-              "example": "Acme Corporation",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Lista de clientes",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ViewCustomerDto"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Dados inválidos no corpo da requisição"
-          },
-          "422": {
-            "description": "Erro de validação nos dados fornecidos"
-          }
-        },
-        "summary": "Lista todos os clientes",
-        "tags": [
-          "Customer"
+          "auth"
         ]
       }
     },
@@ -212,27 +160,27 @@
         ]
       }
     },
-    "/auth/login": {
+    "/customers": {
       "post": {
-        "operationId": "AuthController_create",
+        "operationId": "CustomerController_create",
         "parameters": [],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignInInputDto"
+                "$ref": "#/components/schemas/CreateCustomerDto"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Usuário logado com sucesso",
+            "description": "Cliente criado com sucesso",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SignInResponseDto"
+                  "$ref": "#/components/schemas/ViewCustomerDto"
                 }
               }
             }
@@ -244,9 +192,115 @@
             "description": "Erro de validação nos dados fornecidos"
           }
         },
-        "summary": "Realiza o login de um usuário",
+        "summary": "Cria um novo cliente",
         "tags": [
-          "auth"
+          "Customer"
+        ]
+      },
+      "get": {
+        "operationId": "CustomerController_findAll",
+        "parameters": [
+          {
+            "name": "id",
+            "required": false,
+            "in": "query",
+            "description": "ID único do cliente",
+            "schema": {
+              "nullable": true,
+              "example": "123e4567-e89b-12d3-a456-426614174000",
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "Nome do cliente",
+            "schema": {
+              "nullable": true,
+              "example": "Acme Corporation",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ViewCustomerDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos no corpo da requisição"
+          },
+          "422": {
+            "description": "Erro de validação nos dados fornecidos"
+          }
+        },
+        "summary": "Lista todos os clientes",
+        "tags": [
+          "Customer"
+        ]
+      }
+    },
+    "/sales-entry": {
+      "get": {
+        "operationId": "SalesEntryController_findAll",
+        "parameters": [
+          {
+            "name": "id",
+            "required": false,
+            "in": "query",
+            "description": "ID único do cliente",
+            "schema": {
+              "nullable": true,
+              "example": "123e4567-e89b-12d3-a456-426614174000",
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "Nome do cliente",
+            "schema": {
+              "nullable": true,
+              "example": "Acme Corporation",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de registros de vendas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ViewSaleEntryOutputDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos no corpo da requisição"
+          },
+          "422": {
+            "description": "Erro de validação nos dados fornecidos"
+          }
+        },
+        "summary": "Lista todos os registros de vendas",
+        "tags": [
+          "Sales Entry"
         ]
       }
     }
@@ -268,57 +322,88 @@
       }
     },
     "schemas": {
-      "CreateCustomerDto": {
+      "SignInInputDto": {
         "type": "object",
         "properties": {
-          "name": {
+          "email": {
             "type": "string",
-            "example": "Acme Corporation",
-            "description": "Nome do cliente"
+            "example": "user@email.com",
+            "description": "Email do usuário"
+          },
+          "password": {
+            "type": "string",
+            "example": "Senha@123",
+            "description": "Senha do usuário (mínimo 6 caracteres)"
           }
         },
         "required": [
-          "name"
+          "email",
+          "password"
         ]
       },
-      "ViewCustomerDto": {
+      "UserDto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "example": "123e4567-e89b-12d3-a456-426614174000",
-            "description": "ID único do cliente"
+            "example": "1e9dfb8a-7152-4104-83ac-7723cc8ef258"
+          },
+          "email": {
+            "type": "string",
+            "example": "lucas@example.com"
           },
           "name": {
             "type": "string",
-            "example": "Acme Corporation",
-            "description": "Nome do cliente"
+            "example": "Lucas Teste"
           },
-          "createdAt": {
-            "format": "date-time",
+          "role": {
             "type": "string",
-            "example": "2024-04-01T12:00:00Z",
-            "description": "Data de criação"
+            "enum": [
+              "ADMIN",
+              "MANAGER",
+              "SELLER"
+            ],
+            "example": "ADMIN"
           },
-          "updatedAt": {
-            "format": "date-time",
+          "customerId": {
             "type": "string",
-            "example": "2024-05-01T12:00:00Z",
-            "description": "Data da última atualização"
-          },
-          "deletedAt": {
-            "type": "object",
-            "example": null,
-            "description": "Data da exclusão (soft delete), ou null se não excluído",
-            "nullable": true
+            "example": "abc123"
           }
         },
         "required": [
           "id",
+          "email",
           "name",
-          "createdAt",
-          "updatedAt",
-          "deletedAt"
+          "role",
+          "customerId"
+        ]
+      },
+      "SignInResponseDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxZTlkZmI4YS03MTUyLTQxMDQtODNhYy03NzIzY2M4ZWY3MjUiLCJlbWFpbCI6ImFkbWluQG1pbmVpcm8uY29tIiwibmFtZSI6IkFkbWluIiwicm9sZSI6IkFETUlOIiwiY3VzdG9tZXJJZCI6ImM0ZjQ2YzQwLTFkNzUtNGJiYy04OTJmLTBiZjI4ZGVhZmZmZSIsImlhdCI6MTc0NzY5Nzg5OCwiZXhwIjoxNzUwMjg5ODk4fQ.tuP1uRcABylfrTNwX7bwQ5gAp6rIpwpzoPdsDRx5Wos\"",
+            "description": "Token de acesso do usuário"
+          },
+          "expiresIn": {
+            "type": "number",
+            "example": 3600,
+            "description": "Tempo de expiração do token em segundos"
+          },
+          "user": {
+            "description": "Informações do usuário",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "token",
+          "expiresIn",
+          "user"
         ]
       },
       "CreateUserDto": {
@@ -426,88 +511,152 @@
           "deletedAt"
         ]
       },
-      "SignInInputDto": {
+      "CreateCustomerDto": {
         "type": "object",
         "properties": {
-          "email": {
+          "name": {
             "type": "string",
-            "example": "user@email.com",
-            "description": "Email do usuário"
-          },
-          "password": {
-            "type": "string",
-            "example": "Senha@123",
-            "description": "Senha do usuário (mínimo 6 caracteres)"
+            "example": "Acme Corporation",
+            "description": "Nome do cliente"
           }
         },
         "required": [
-          "email",
-          "password"
+          "name"
         ]
       },
-      "UserDto": {
+      "ViewCustomerDto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "example": "1e9dfb8a-7152-4104-83ac-7723cc8ef258"
-          },
-          "email": {
-            "type": "string",
-            "example": "lucas@example.com"
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "description": "ID único do cliente"
           },
           "name": {
             "type": "string",
-            "example": "Lucas Teste"
+            "example": "Acme Corporation",
+            "description": "Nome do cliente"
           },
-          "role": {
+          "createdAt": {
+            "format": "date-time",
             "type": "string",
-            "enum": [
-              "ADMIN",
-              "MANAGER",
-              "SELLER"
-            ],
-            "example": "ADMIN"
+            "example": "2024-04-01T12:00:00Z",
+            "description": "Data de criação"
           },
-          "customerId": {
+          "updatedAt": {
+            "format": "date-time",
             "type": "string",
-            "example": "abc123"
+            "example": "2024-05-01T12:00:00Z",
+            "description": "Data da última atualização"
+          },
+          "deletedAt": {
+            "type": "object",
+            "example": null,
+            "description": "Data da exclusão (soft delete), ou null se não excluído",
+            "nullable": true
           }
         },
         "required": [
           "id",
-          "email",
           "name",
-          "role",
-          "customerId"
+          "createdAt",
+          "updatedAt",
+          "deletedAt"
         ]
       },
-      "SignInResponseDto": {
+      "ViewSaleEntryOutputDto": {
         "type": "object",
         "properties": {
-          "token": {
+          "id": {
             "type": "string",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxZTlkZmI4YS03MTUyLTQxMDQtODNhYy03NzIzY2M4ZWY3MjUiLCJlbWFpbCI6ImFkbWluQG1pbmVpcm8uY29tIiwibmFtZSI6IkFkbWluIiwicm9sZSI6IkFETUlOIiwiY3VzdG9tZXJJZCI6ImM0ZjQ2YzQwLTFkNzUtNGJiYy04OTJmLTBiZjI4ZGVhZmZmZSIsImlhdCI6MTc0NzY5Nzg5OCwiZXhwIjoxNzUwMjg5ODk4fQ.tuP1uRcABylfrTNwX7bwQ5gAp6rIpwpzoPdsDRx5Wos\"",
-            "description": "Token de acesso do usuário"
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "description": "ID único da venda"
           },
-          "expiresIn": {
+          "date": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-05-01T12:00:00Z",
+            "description": "Data da última atualização"
+          },
+          "storeId": {
+            "type": "string",
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "description": "ID único da loja"
+          },
+          "productId": {
+            "type": "string",
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "description": "ID único do produto"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "description": "ID único do usuário"
+          },
+          "quantitySold": {
             "type": "number",
-            "example": 3600,
-            "description": "Tempo de expiração do token em segundos"
+            "example": 10,
+            "description": "Quantidade vendida"
           },
-          "user": {
-            "description": "Informações do usuário",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/UserDto"
-              }
-            ]
+          "quantityUnsold": {
+            "type": "number",
+            "example": 5,
+            "description": "Quantidade não vendida"
+          },
+          "unitCost": {
+            "type": "number",
+            "example": 100,
+            "description": "Custo unitário"
+          },
+          "quantitySentToStore": {
+            "type": "number",
+            "example": 15,
+            "description": "Quantidade enviada para a loja"
+          },
+          "salePrice": {
+            "type": "number",
+            "example": 150,
+            "description": "Preço de venda"
+          },
+          "customerName": {
+            "type": "string",
+            "example": "Acme Corporation",
+            "description": "Nome do cliente"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-04-01T12:00:00Z",
+            "description": "Data de criação"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-05-01T12:00:00Z",
+            "description": "Data da última atualização"
+          },
+          "deletedAt": {
+            "type": "object",
+            "example": null,
+            "description": "Data da exclusão (soft delete), ou null se não excluído",
+            "nullable": true
           }
         },
         "required": [
-          "token",
-          "expiresIn",
-          "user"
+          "id",
+          "date",
+          "storeId",
+          "productId",
+          "createdBy",
+          "quantitySold",
+          "quantityUnsold",
+          "unitCost",
+          "quantitySentToStore",
+          "salePrice",
+          "customerName",
+          "createdAt",
+          "updatedAt",
+          "deletedAt"
         ]
       }
     }
