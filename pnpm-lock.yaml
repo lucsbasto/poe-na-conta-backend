@@ -77,6 +77,9 @@ importers:
       helmet:
         specifier: ^8.1.0
         version: 8.1.0
+      husky:
+        specifier: ^9.1.7
+        version: 9.1.7
       passport:
         specifier: ^0.7.0
         version: 0.7.0
@@ -168,9 +171,6 @@ importers:
       globals:
         specifier: ^16.0.0
         version: 16.1.0
-      husky:
-        specifier: ^9.1.7
-        version: 9.1.7
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.15.21)(ts-node@10.9.2(@swc/core@1.11.29)(@types/node@22.15.21)(typescript@5.8.3))
