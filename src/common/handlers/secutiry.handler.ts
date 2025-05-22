@@ -15,14 +15,12 @@ function setupCors(app: INestApplication, configService: ConfigService): void {
   const corsEnabled = configService.get<boolean>('CORS_ENABLED') ?? false;
   if (!corsEnabled) return;
 
-  const rawOrigins = configService.get<string | string[]>('CORS_ORIGIN') || [];
-  const allowedOrigins = Array.isArray(rawOrigins)
-    ? rawOrigins.map((origin) => origin.replace(/\/+$/, '')) // remove barra final
-    : [rawOrigins.replace(/\/+$/, '')]; // remove barra final
+  const rawOrigins = configService.get<string>('CORS_ORIGIN')?.split(',');
+  const allowedOrigins = rawOrigins?.map((origin) => origin.trim().replace(/\/+$/, ''));
 
   app.enableCors({
     origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin || allowedOrigins?.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error(`Origin ${origin} not allowed by CORS`));

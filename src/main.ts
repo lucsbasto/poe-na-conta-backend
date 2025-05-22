@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
+import { setupGlobalFilters } from './common/handlers/global-filters.handler';
 import { setupGlobalPipes } from './common/handlers/global-pipes.handler';
 import { setupSecurity } from './common/handlers/secutiry.handler';
 import { setupSwagger } from './common/handlers/swagger.handler';
@@ -24,7 +25,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('HTTP_PORT') || 3000;
   const logger = await app.resolve(LoggerService);
-
+  await setupGlobalFilters(app);
   setupGlobalPipes(app);
   setupSwagger(app);
 
