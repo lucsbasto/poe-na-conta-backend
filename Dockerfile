@@ -30,4 +30,4 @@ COPY --from=builder /app/dist ./dist
 # Apenas produção
 ENV NODE_ENV=production
 
-CMD ["node", "dist/main"]
+CMD ["node", "dist/src/main"]
