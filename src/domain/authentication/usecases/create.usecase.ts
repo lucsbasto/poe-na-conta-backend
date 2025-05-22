@@ -37,7 +37,7 @@ export class SignInUseCase implements ISignInUseCase {
     const token = this.jwtService.sign(payload);
     return {
       token,
-      expiresIn: Number(process.env.JWT_EXPIRES_IN),
+      expiresIn: process.env.JWT_EXPIRES_IN || '30d',
       user: {
         id: user.id,
         email: user.email,

@@ -2,7 +2,7 @@ import { Role } from '@/domain/common/enums/role';
 
 export interface ISignInOutput {
   token: string;
-  expiresIn: number;
+  expiresIn: string;
   user: {
     id: string;
     email: string;

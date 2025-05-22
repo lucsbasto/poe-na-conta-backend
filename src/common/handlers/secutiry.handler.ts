@@ -1,5 +1,6 @@
 import type { INestApplication } from '@nestjs/common';
 import type { ConfigService } from '@nestjs/config';
+import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 
@@ -7,6 +8,7 @@ export function setupSecurity(app: INestApplication, configService: ConfigServic
   setupCors(app, configService);
   setupHelmet(app);
   setupRateLimit(app, configService);
+  setupCookies(app);
 }
 
 function setupCors(app: INestApplication, configService: ConfigService): void {
@@ -20,6 +22,9 @@ function setupCors(app: INestApplication, configService: ConfigService): void {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
+}
+function setupCookies(app: INestApplication): void {
+  app.use(cookieParser()); // <- importante
 }
 
 function setupHelmet(app: INestApplication): void {

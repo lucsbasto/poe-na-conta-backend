@@ -27,8 +27,8 @@ export class SignInResponseDto implements ISignInOutput {
   })
   token!: string;
 
-  @ApiProperty({ example: 3600, description: 'Tempo de expiração do token em segundos' })
-  expiresIn!: number;
+  @ApiProperty({ example: '30d', description: 'Tempo de expiração do token em segundos' })
+  expiresIn!: string;
 
   @ApiProperty({ type: UserDto, description: 'Informações do usuário' })
   user!: UserDto;

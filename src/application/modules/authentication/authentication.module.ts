@@ -1,5 +1,7 @@
+import { IGetMeUseCase } from '@/domain/authentication/interfaces/usecases/get-me';
 import { ISignInUseCase } from '@/domain/authentication/interfaces/usecases/sign-in';
 import { SignInUseCase } from '@/domain/authentication/usecases/create.usecase';
+import { GetMeUseCase } from '@/domain/authentication/usecases/get-me.usecase';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from '../user/user.module';
@@ -20,6 +22,10 @@ import { JwtStrategy } from './strategy/jwt.strategy';
     {
       provide: ISignInUseCase,
       useClass: SignInUseCase,
+    },
+    {
+      provide: IGetMeUseCase,
+      useClass: GetMeUseCase,
     },
   ],
   exports: [JwtStrategy],
