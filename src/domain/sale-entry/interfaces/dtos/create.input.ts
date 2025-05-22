@@ -4,6 +4,7 @@ export interface ICreateSaleEntryInput {
   storeId: string;
   productId: string;
   createdBy: string;
+  customerId: string;
   quantitySold: number;
   quantityReturned: number;
   unitCost: number;

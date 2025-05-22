@@ -1,7 +1,22 @@
+import { ViewCustomerDto } from '@/application/modules/customer/api/dtos/view.dto';
 import { IViewProductOutput } from '@/domain/product/interfaces/dtos';
 import { ApiProperty } from '@nestjs/swagger';
+class ViewCategoryDto {
+  @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000', description: 'ID único da categoria' })
+  id!: string;
+
+  @ApiProperty({ example: 'Eletrônicos', description: 'Nome da categoria' })
+  name!: string;
+}
 
 export class ViewProductDto implements IViewProductOutput {
+  @ApiProperty({ type: () => ViewCustomerDto, description: 'Cliente do produto' })
+  customer!: ViewCustomerDto;
+
+  @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000', description: 'ID da categoria' })
+  categoryId!: string;
+
+  @ApiProperty({ type: () => ViewCategoryDto, description: 'Categoria do produto' })
   category!: ViewCategoryDto;
 
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000', description: 'ID único do produto' })
@@ -25,12 +40,4 @@ export class ViewProductDto implements IViewProductOutput {
     nullable: true,
   })
   deletedAt!: Date | null;
-}
-
-class ViewCategoryDto {
-  @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000', description: 'ID único da categoria' })
-  id!: string;
-
-  @ApiProperty({ example: 'Eletrônicos', description: 'Nome da categoria' })
-  name!: string;
 }

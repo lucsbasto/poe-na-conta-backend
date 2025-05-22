@@ -23,5 +23,5 @@ export abstract class DefaultEntity {
     type: 'timestamp without time zone',
     nullable: true,
   })
-  deletedAt!: Date | null;
+  deletedAt?: Date | null;
 }

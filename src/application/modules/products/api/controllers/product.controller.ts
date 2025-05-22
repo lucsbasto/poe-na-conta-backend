@@ -39,7 +39,7 @@ export class ProductController {
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
     createProductDto: CreateProductDto,
     @Req() req: Request,
-  ): Promise<ViewProductDto | null> {
+  ): Promise<any> {
     if (!req.user?.customerId) {
       throw new Error('Customer ID não encontrado no token');
     }
@@ -57,7 +57,7 @@ export class ProductController {
   @ApiOkResponse({ description: 'Lista de produtos', type: [ViewProductDto] })
   @ApiQuery({ name: 'id', required: false, type: String })
   @ApiQuery({ name: 'name', required: false, type: String })
-  async findAll(@Query() filter: FilterProductDto, @Req() req: Request): Promise<ViewProductDto[]> {
+  async findAll(@Query() filter: FilterProductDto, @Req() req: Request): Promise<any> {
     const filterWithCustomer = { ...filter, customerId: req.user?.customerId };
     return this.listAllProductUseCase.execute(filterWithCustomer);
   }

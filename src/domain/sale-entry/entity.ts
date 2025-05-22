@@ -1,9 +1,8 @@
-import { UniqueEntityID } from '@/common/helpers/uuid';
 import { Product } from '../product/entity';
 import { ISaleEntryInput } from './interfaces/dtos/sale-entry.input';
 
 export class SaleEntry {
-  public readonly id: string;
+  public readonly id?: string;
   public readonly date: Date;
   public readonly storeId: string;
   public readonly product?: Product | null;
@@ -28,7 +27,7 @@ export class SaleEntry {
     salePrice,
     product,
   }: ISaleEntryInput) {
-    this.id = id ?? UniqueEntityID.create();
+    this.id = id ?? undefined;
     this.date = date;
     this.product = product ?? null;
     this.storeId = storeId;

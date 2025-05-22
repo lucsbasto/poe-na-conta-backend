@@ -33,7 +33,7 @@ export class CustomerController {
   async create(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
     createCustomerDto: CreateCustomerDto,
-  ): Promise<ViewCustomerDto> {
+  ): Promise<any> {
     return this.createCustomerUseCase.execute(createCustomerDto);
   }
 
@@ -42,7 +42,7 @@ export class CustomerController {
   @ApiOkResponse({ description: 'Lista de clientes', type: [ViewCustomerDto] })
   @ApiQuery({ name: 'id', required: false, type: String })
   @ApiQuery({ name: 'name', required: false, type: String })
-  async findAll(@Query() filter: FilterCustomerDto): Promise<ViewCustomerDto[]> {
+  async findAll(@Query() filter: FilterCustomerDto): Promise<any> {
     return this.listAllCustomerUseCase.execute(filter);
   }
 }

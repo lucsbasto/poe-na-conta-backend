@@ -19,9 +19,9 @@ export class ProductRepository implements IProductRepository {
     return updated;
   }
 
-  async update(product: Product): Promise<ProductEntity | null> {
-    await this.repository.update(product.id, product);
-    const updated = await this.repository.findOne({ where: { id: product.id } });
+  async update(id: string, product: Product): Promise<ProductEntity | null> {
+    await this.repository.update(id, product);
+    const updated = await this.repository.findOne({ where: { id } });
     return updated;
   }
 

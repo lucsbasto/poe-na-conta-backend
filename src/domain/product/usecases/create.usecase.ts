@@ -12,6 +12,7 @@ export class CreateProductUseCase implements ICreateProductUseCase {
   ) {}
 
   async execute(input: ICreateProductInput): Promise<ProductEntity | null> {
-    return this.repository.create(input);
+    const product = await this.repository.create(input);
+    return product;
   }
 }

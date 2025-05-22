@@ -1,6 +1,6 @@
 // src/domain/sale-entry/interfaces/repositories/repository.ts
 
-import { SaleEntryEntity } from '@/infrastructure/database/typeorm/entities/sale-entry.entity';
+import { ICreateSaleEntryInput, SaleEntryEntity } from '@/infrastructure/database/typeorm/entities/sale-entry.entity';
 import { IFilterSaleEntryInput } from '../dtos/filter.input';
 
 export abstract class ISaleEntryRepository {
@@ -9,4 +9,5 @@ export abstract class ISaleEntryRepository {
   abstract findAll(filter?: IFilterSaleEntryInput): Promise<SaleEntryEntity[]>;
   abstract findOne(id: string): Promise<SaleEntryEntity | null>;
   abstract softDelete(id: string): Promise<void>;
+  abstract save(input: ICreateSaleEntryInput[]): Promise<SaleEntryEntity[]>;
 }

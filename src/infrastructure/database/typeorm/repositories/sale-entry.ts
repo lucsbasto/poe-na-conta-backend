@@ -12,6 +12,11 @@ export class SaleEntryRepository implements ISaleEntryRepository {
     private readonly repository: Repository<SaleEntryEntity>,
   ) {}
 
+  async save(input: SaleEntryEntity[]): Promise<SaleEntryEntity[]> {
+    const createdEntities = await this.repository.create(input);
+    return await this.repository.save(createdEntities);
+  }
+
   async create(payload: SaleEntryEntity): Promise<SaleEntryEntity> {
     const entity = this.repository.create({
       ...payload,

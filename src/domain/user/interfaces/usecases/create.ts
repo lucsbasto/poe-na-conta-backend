@@ -1,5 +1,6 @@
-import { ICreateUserInput, IViewUserOutput } from '../dtos';
+import { UserEntity } from '@/infrastructure/database/typeorm/entities/user.entity';
+import { ICreateUserInput } from '../dtos';
 
 export abstract class ICreateUserUseCase {
-  abstract execute(input: ICreateUserInput): Promise<IViewUserOutput>;
+  abstract execute(input: ICreateUserInput): Promise<UserEntity | null>;
 }

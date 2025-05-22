@@ -1,5 +1,5 @@
 import { Customer } from '@/domain/customer/entity';
-import { IFilterCustomerInput, IViewCustomerOutput } from '@/domain/customer/interfaces/dtos';
+import { IFilterCustomerInput } from '@/domain/customer/interfaces/dtos';
 import { ICustomerRepository } from '@/domain/customer/interfaces/repositories/repository';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,23 +13,23 @@ export class CustomerRepository implements ICustomerRepository {
     private readonly repository: Repository<CustomerEntity>,
   ) {}
 
-  async create(customer: Customer): Promise<IViewCustomerOutput> {
+  async create(customer: Customer): Promise<CustomerEntity> {
     const entity = this.repository.create(customer);
     const saved = await this.repository.save(entity);
     return saved;
   }
 
-  async update(id: string, customer: Customer): Promise<IViewCustomerOutput | null> {
+  async update(id: string, customer: Customer): Promise<CustomerEntity | null> {
     await this.repository.update(id, customer);
     const updated = await this.repository.findOne({ where: { id } });
     return updated;
   }
 
-  async findOne(id: string): Promise<IViewCustomerOutput | null> {
+  async findOne(id: string): Promise<CustomerEntity | null> {
     return this.repository.findOne({ where: { id } });
   }
 
-  async findAll(filter: IFilterCustomerInput): Promise<IViewCustomerOutput[]> {
+  async findAll(filter: IFilterCustomerInput): Promise<CustomerEntity[]> {
     return this.repository.find({ where: filter });
   }
 

@@ -55,3 +55,6 @@ export class SaleEntryEntity extends DefaultEntity {
   @Column('decimal')
   salePrice!: number;
 }
+
+export type IUpdateSaleEntryInput = Partial<SaleEntryEntity>;
+export type ICreateSaleEntryInput = Omit<SaleEntryEntity, 'id' | 'createdAt' | 'updatedAt'>;
