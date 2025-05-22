@@ -15,14 +15,24 @@ function setupCors(app: INestApplication, configService: ConfigService): void {
   const corsEnabled = configService.get<boolean>('CORS_ENABLED') ?? false;
   if (!corsEnabled) return;
 
-  const allowedOrigins = configService.get<string | string[]>('CORS_ORIGIN') || '*';
+  const rawOrigins = configService.get<string | string[]>('CORS_ORIGIN') || [];
+  const allowedOrigins = Array.isArray(rawOrigins)
+    ? rawOrigins.map((origin) => origin.replace(/\/+$/, '')) // remove barra final
+    : [rawOrigins.replace(/\/+$/, '')]; // remove barra final
 
   app.enableCors({
-    origin: allowedOrigins,
+    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`Origin ${origin} not allowed by CORS`));
+      }
+    },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
 }
+
 function setupCookies(app: INestApplication): void {
   app.use(cookieParser()); // <- importante
 }

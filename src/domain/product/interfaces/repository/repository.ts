@@ -1,13 +1,11 @@
-import {
-  ICreateProductInput,
-  IUpdateProductInput,
-  IViewProductOutput,
-} from '../dtos';
+import { ProductEntity } from '@/infrastructure/database/typeorm/entities/product.entity';
+import { ICreateProductInput, IUpdateProductInput } from '../dtos';
+import { IFilterProductInput } from '../dtos/filter.output';
 
-export interface IProductRepository {
-  create(input: ICreateProductInput): Promise<IViewProductOutput>;
-  update(input: IUpdateProductInput): Promise<IViewProductOutput>;
-  findAll(): Promise<IViewProductOutput[]>;
-  findOne(id: string): Promise<IViewProductOutput | null>;
-  softDelete(id: string): Promise<void>;
+export abstract class IProductRepository {
+  abstract create(input: ICreateProductInput): Promise<ProductEntity | null>;
+  abstract update(input: IUpdateProductInput): Promise<ProductEntity | null>;
+  abstract findAll(filter?: IFilterProductInput): Promise<ProductEntity[]>;
+  abstract findOne(id: string): Promise<ProductEntity | null>;
+  abstract softDelete(id: string): Promise<void>;
 }

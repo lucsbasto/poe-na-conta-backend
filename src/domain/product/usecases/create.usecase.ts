@@ -1,13 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { ICreateProductInput, IViewProductOutput } from '../interfaces/dtos';
+import { ProductEntity } from '@/infrastructure/database/typeorm/entities/product.entity';
+import { Inject, Injectable } from '@nestjs/common';
+import { ICreateProductInput } from '../interfaces/dtos';
 import { IProductRepository } from '../interfaces/repository/repository';
 import { ICreateProductUseCase } from '../interfaces/usecases/create';
 
 @Injectable()
-export class CreateProductService implements ICreateProductUseCase {
-  constructor(private readonly repository: IProductRepository) {}
+export class CreateProductUseCase implements ICreateProductUseCase {
+  constructor(
+    @Inject(IProductRepository)
+    private readonly repository: IProductRepository,
+  ) {}
 
-  async execute(input: ICreateProductInput): Promise<IViewProductOutput> {
+  async execute(input: ICreateProductInput): Promise<ProductEntity | null> {
     return this.repository.create(input);
   }
 }

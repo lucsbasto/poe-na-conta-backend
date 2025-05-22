@@ -18,6 +18,9 @@ export class ProductEntity extends DefaultEntity {
   @JoinColumn({ name: 'category_id' })
   category!: CategoryEntity;
 
+  @Column({ name: 'customer_id' })
+  customerId!: string;
+
   @ManyToOne(
     () => CustomerEntity,
     (customer) => customer.products,
@@ -31,3 +34,5 @@ export class ProductEntity extends DefaultEntity {
   )
   sales!: SaleEntryEntity[];
 }
+
+export type IFilterProductInput = Partial<ProductEntity>;
