@@ -13,14 +13,16 @@ export function setupSecurity(app: INestApplication, configService: ConfigServic
 
 function setupCors(app: INestApplication, configService: ConfigService): void {
   const corsEnabled = configService.get<boolean>('CORS_ENABLED') ?? false;
+
   if (!corsEnabled) return;
 
   const rawOrigins = configService.get<string>('CORS_ORIGIN')?.split(',');
   const allowedOrigins = rawOrigins?.map((origin) => origin.trim().replace(/\/+$/, ''));
-
+  console.log('Allowed origins:', allowedOrigins);
   app.enableCors({
     origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
       if (!origin || allowedOrigins?.includes(origin)) {
+        console.log('CORS origin allowed:', origin);
         callback(null, true);
       } else {
         callback(new Error(`Origin ${origin} not allowed by CORS`));
