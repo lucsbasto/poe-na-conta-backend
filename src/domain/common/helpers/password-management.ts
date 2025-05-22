@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 export const passwordCompare = async (input: string, exists: string): Promise<boolean> => {
   if (!input || !exists) {
