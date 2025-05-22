@@ -1,33 +1,33 @@
-# Etapa de build
+# Etapa 1: build
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Habilita e instala pnpm via corepack
+# Ativa o corepack para usar PNPM
 RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
 
-# Copia os arquivos do projeto
 COPY . .
 
-# Instala dependências, mas ignora scripts (como husky)
-RUN pnpm install --frozen-lockfile --ignore-scripts
+# Garante que as devDependencies sejam instaladas
+ENV NODE_ENV=development
+RUN pnpm install --frozen-lockfile
 
 # Compila a aplicação
 RUN pnpm run build
 
-# Etapa final (imagem de produção enxuta)
+# Etapa 2: imagem final de produção
 FROM node:20-alpine AS production
 
 WORKDIR /app
 
-# Habilita e instala pnpm novamente
 RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
 
-COPY --from=builder /app /app
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/pnpm-lock.yaml ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
 
+# Apenas produção
 ENV NODE_ENV=production
-
-# Instala apenas dependências de produção
-RUN pnpm install --prod --ignore-scripts
 
 CMD ["node", "dist/main"]
