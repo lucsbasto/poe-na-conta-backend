@@ -1,0 +1,31 @@
+name: Schedule DigitalOcean Droplet On/Off
+
+on:
+  schedule:
+    # 03:00 UTC = 00:00 BRT → DESLIGAR
+    - cron: '0 3 * * *'
+    # 09:00 UTC = 06:00 BRT → LIGAR
+    - cron: '0 9 * * *'
+
+jobs:
+  manage-droplet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Define droplet action based on UTC time
+        id: action
+        run: |
+          HOUR=$(date -u +"%H")
+          if [ "$HOUR" -eq "3" ]; then
+            echo "action=shutdown" >> $GITHUB_OUTPUT
+          elif [ "$HOUR" -eq "9" ]; then
+            echo "action=power_on" >> $GITHUB_OUTPUT
+          else
+            echo "Invalid schedule" && exit 1
+          fi
+
+      - name: Call DigitalOcean API
+        run: |
+          curl -X POST "https://api.digitalocean.com/v2/droplets/497340309/actions" \
+            -H "Authorization: Bearer ${{ secrets.DIGITALOCEAN_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"type\":\"${{ steps.action.outputs.action }}\"}"
