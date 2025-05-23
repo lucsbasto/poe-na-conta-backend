@@ -1,4 +1,5 @@
 import { calculateProfit, calculateRevenue, calculateTotalCost } from '@/domain/common/helpers/calculate';
+import { IProductStoreRepository } from '@/domain/product-store/interfaces/repository/repository';
 import { IListAllProductUseCase } from '@/domain/product/interfaces/usecases/list-all.usecase';
 import { ProductEntity } from '@/infrastructure/database/typeorm/entities/product.entity';
 import { StoreEntity } from '@/infrastructure/database/typeorm/entities/store.entity';
@@ -13,6 +14,8 @@ export class ListAllSalesEntryUseCase implements IListAllSalesEntryUseCase {
   constructor(
     @Inject(ISaleEntryRepository)
     private readonly repository: ISaleEntryRepository,
+    @Inject(IProductStoreRepository)
+    private readonly productStoreRepository: IProductStoreRepository,
     @Inject(IListAllProductUseCase)
     private readonly listAllProductUseCase: IListAllProductUseCase,
   ) {}
@@ -25,6 +28,7 @@ export class ListAllSalesEntryUseCase implements IListAllSalesEntryUseCase {
     const salesEntryWithProduct = await this.repository.findAll({ ...filter });
     return this.buildResponse(salesEntryWithProduct);
   }
+
   private buildResponse(salesEntry: any[]) {
     return salesEntry.map((saleEntry) => {
       const totalCost = calculateTotalCost(saleEntry.unitCost, saleEntry.quantitySentToStore);
@@ -46,9 +50,25 @@ export class ListAllSalesEntryUseCase implements IListAllSalesEntryUseCase {
       };
     });
   }
+
+  private findAllProductStore(storeId: string) {
+    return this.productStoreRepository.findAll({ storeId });
+  }
   private async createSaleEntry(input: any): Promise<void> {
+    // Busca todos os produtos do cliente
     const products = await this.listAllProductUseCase.execute({ customerId: input.customerId });
+
+    // Busca os registros da entidade product_store para a loja
+    const productStoreEntries = await this.findAllProductStore(input.storeId);
+
+    // Cria os lançamentos de venda com os dados do produto + valores de product_store
     const salesEntries = products.map((product) => {
+      const productStore = productStoreEntries.find((entry) => entry.productId === product.id);
+
+      if (!productStore) {
+        throw new Error(`ProductStore not found for product ID: ${product.id} and store ID: ${input.storeId}`);
+      }
+
       return {
         id: undefined,
         product: product as ProductEntity,
@@ -57,14 +77,15 @@ export class ListAllSalesEntryUseCase implements IListAllSalesEntryUseCase {
         storeId: input.storeId,
         createdById: input.createdBy,
         createdBy: { id: input.createdBy } as UserEntity,
-        unitCost: 4,
+        unitCost: productStore.unitCost,
         quantitySentToStore: 0,
         quantitySold: 0,
         quantityReturned: 0,
-        salePrice: 7,
+        salePrice: productStore.salePrice,
         date: new Date(),
       };
     });
+
     await this.repository.save(salesEntries);
   }
 }
