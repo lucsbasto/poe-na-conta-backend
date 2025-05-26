@@ -1,9 +1,9 @@
-import { ICreateStoreInput, IUpdateStoreInput, IViewStoreOutput } from "../dtos";
+import { StoreEntity } from "@/infrastructure/database/typeorm/entities/store.entity";
 
-export interface IStoreRepository {
-  create(input: ICreateStoreInput): Promise<IViewStoreOutput>;
-  update(input: IUpdateStoreInput): Promise<IViewStoreOutput>;
-  findAll(): Promise<IViewStoreOutput[]>;
-  findOne(id: string): Promise<IViewStoreOutput | null>;
-  softDelete(id: string): Promise<void>;
+export abstract class IStoreRepository {
+  abstract create(input: any): Promise<void>;
+  abstract update(id: string, input: any): Promise<void>;
+  abstract findAll(filter: any): Promise<StoreEntity[]>;
+  abstract findById(id: string): Promise<StoreEntity | null>;
+  abstract softDelete(id: string): Promise<void>;
 }
