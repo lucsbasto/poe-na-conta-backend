@@ -1,4 +1,4 @@
-import { Role } from '@/domain/authentication/enums/role.enum';
+import { RoleEnum } from '@/domain/authentication/enums/role.enum';
 
 declare global {
   namespace Express {
@@ -6,7 +6,7 @@ declare global {
       sub: string;
       email: string;
       name: string;
-      role: Role;
+      role: RoleEnum;
       customerId: string;
       iat: number;
       exp: number;

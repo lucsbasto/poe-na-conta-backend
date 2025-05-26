@@ -1,11 +1,11 @@
-import { Role } from '@/domain/common/enums/role';
+import { RoleEnum } from '@/domain/common/enums/role';
 
 export interface IUserInput {
   id?: string;
   name: string;
   password: string;
   email: string;
-  role: Role;
+  role: RoleEnum;
   isActive?: boolean;
   customerId: string;
   createdAt?: Date;

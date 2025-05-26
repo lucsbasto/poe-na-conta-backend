@@ -1,4 +1,4 @@
-import { Role } from '@/domain/common/enums/role';
+import { RoleEnum } from '@/domain/common/enums/role';
 import type { ICreateUserInput } from '@/domain/user/interfaces/dtos';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsEnum, IsNotEmpty, IsString, IsUUID, Matches, MaxLength, MinLength } from 'class-validator';
@@ -22,10 +22,10 @@ export class CreateUserDto implements ICreateUserInput {
   })
   password!: string;
 
-  @ApiProperty({ example: Role.SELLER, enum: Role, description: 'Perfil de acesso' })
+  @ApiProperty({ example: RoleEnum.SELLER, enum: RoleEnum, description: 'Perfil de acesso' })
   @IsNotEmpty({ message: 'O perfil (role) é obrigatório' })
-  @IsEnum(Role, { message: 'O perfil informado é inválido' })
-  role!: Role;
+  @IsEnum(RoleEnum, { message: 'O perfil informado é inválido' })
+  role!: RoleEnum;
 
   @ApiProperty({ example: '3507d8b5-ed0f-45bd-b2e1-7b539259069e', description: 'Id do customer' })
   @IsNotEmpty({ message: 'O id do customer é obrigatório' })

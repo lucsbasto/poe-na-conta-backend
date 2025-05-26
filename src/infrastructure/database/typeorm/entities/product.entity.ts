@@ -2,6 +2,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from 'typeorm
 import { CategoryEntity } from './category.entity';
 import { CustomerEntity } from './customer.entity';
 import { DefaultEntity } from './default.entity';
+import { ProductStoreEntity } from './product-store.entity';
 import { SaleEntryEntity } from './sale-entry.entity';
 
 @Entity('products')
@@ -9,6 +10,12 @@ import { SaleEntryEntity } from './sale-entry.entity';
 export class ProductEntity extends DefaultEntity {
   @Column()
   name!: string;
+
+  @OneToMany(
+    () => ProductStoreEntity,
+    (productStore) => productStore.product,
+  )
+  productStores?: ProductStoreEntity[];
 
   @ManyToOne(
     () => CategoryEntity,

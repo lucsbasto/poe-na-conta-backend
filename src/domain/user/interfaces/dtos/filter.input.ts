@@ -1,4 +1,4 @@
-import { Role } from '@/domain/common/enums/role';
+import { RoleEnum } from '@/domain/common/enums/role';
 
 export interface IFilterUserInput {
   id?: string;
@@ -6,6 +6,6 @@ export interface IFilterUserInput {
   email?: string;
   phone?: string;
   password?: string;
-  role?: Role;
+  role?: RoleEnum;
   customerId?: string;
 }

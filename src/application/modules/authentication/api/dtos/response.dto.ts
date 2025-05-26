@@ -1,5 +1,5 @@
 import { ISignInOutput } from '@/domain/authentication/interfaces/dtos';
-import { Role } from '@/domain/common/enums/role';
+import { RoleEnum } from '@/domain/common/enums/role';
 import { ApiProperty } from '@nestjs/swagger';
 
 class UserDto {
@@ -12,8 +12,8 @@ class UserDto {
   @ApiProperty({ example: 'Lucas Teste' })
   name!: string;
 
-  @ApiProperty({ enum: Role, example: Role.ADMIN })
-  role!: Role;
+  @ApiProperty({ enum: RoleEnum, example: RoleEnum.ADMIN })
+  role!: RoleEnum;
 
   @ApiProperty({ example: 'abc123' })
   customerId!: string;

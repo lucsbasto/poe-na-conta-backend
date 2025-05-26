@@ -1,8 +1,11 @@
-import { Role } from '@/domain/common/enums/role';
+import { RoleEnum } from '@/domain/common/enums/role';
 import { IViewUserOutput } from '@/domain/user/interfaces/dtos';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ViewUserDto implements IViewUserOutput {
+  @ApiProperty({ example: true, description: 'Indica se o usuário está ativo' })
+  isActive!: boolean;
+
   @ApiProperty({ example: 'd27448f7-c8de-4d1a-95d2-1edff1a47277', description: 'ID do usuário' })
   id!: string;
 
@@ -12,8 +15,8 @@ export class ViewUserDto implements IViewUserOutput {
   @ApiProperty({ example: 'jorge@email.com', description: 'E-mail do usuário' })
   email!: string;
 
-  @ApiProperty({ example: Role.SELLER, enum: Role, description: 'Perfil do usuário' })
-  role!: Role;
+  @ApiProperty({ example: RoleEnum.SELLER, enum: RoleEnum, description: 'Perfil do usuário' })
+  role!: RoleEnum;
 
   @ApiProperty({ example: '34ad503d-2141-464f-847d-aa567df64586', description: 'ID do cliente (customer)' })
   customerId!: string;
