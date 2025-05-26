@@ -1,7 +1,7 @@
 import { IProductStoreRepository } from '@/domain/product-store/interfaces/repository/repository';
+import { IListAllProductStoreUseCase } from '@/domain/product-store/interfaces/usecases/list-all';
+import { ListAllProductStoreUseCase } from '@/domain/product-store/usecases/list-all.usecase';
 import { IProductRepository } from '@/domain/product/interfaces/repository/repository';
-import { IListAllProductUseCase } from '@/domain/product/interfaces/usecases/list-all.usecase';
-import { ListAllProductUseCase } from '@/domain/product/usecases/list-all.usecase';
 import { ISaleEntryRepository } from '@/domain/sale-entry/interfaces/repository/repository';
 import { IListAllSalesEntryUseCase } from '@/domain/sale-entry/interfaces/usecases/list-all';
 import { ListAllSalesEntryUseCase } from '@/domain/sale-entry/usecases/list-all.usecase';
@@ -36,8 +36,8 @@ import { SalesEntryController } from './api/controllers/sale-entry.controller';
       useClass: ListAllSalesEntryUseCase,
     },
     {
-      provide: IListAllProductUseCase,
-      useClass: ListAllProductUseCase,
+      provide: IListAllProductStoreUseCase,
+      useClass: ListAllProductStoreUseCase,
     },
   ],
 })

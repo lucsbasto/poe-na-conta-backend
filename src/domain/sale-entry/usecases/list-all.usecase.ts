@@ -1,6 +1,6 @@
 import { calculateProfit, calculateRevenue, calculateTotalCost } from '@/domain/common/helpers/calculate';
 import { IProductStoreRepository } from '@/domain/product-store/interfaces/repository/repository';
-import { IListAllProductUseCase } from '@/domain/product/interfaces/usecases/list-all.usecase';
+import { IListAllProductStoreUseCase } from '@/domain/product-store/interfaces/usecases/list-all';
 import { ProductEntity } from '@/infrastructure/database/typeorm/entities/product.entity';
 import { StoreEntity } from '@/infrastructure/database/typeorm/entities/store.entity';
 import { UserEntity } from '@/infrastructure/database/typeorm/entities/user.entity';
@@ -16,8 +16,8 @@ export class ListAllSalesEntryUseCase implements IListAllSalesEntryUseCase {
     private readonly repository: ISaleEntryRepository,
     @Inject(IProductStoreRepository)
     private readonly productStoreRepository: IProductStoreRepository,
-    @Inject(IListAllProductUseCase)
-    private readonly listAllProductUseCase: IListAllProductUseCase,
+    @Inject(IListAllProductStoreUseCase)
+    private readonly listAllProductStoreUseCase: IListAllProductStoreUseCase,
   ) {}
 
   async execute(userId: string, filter: IFilterSaleEntryInput): Promise<any[]> {
@@ -56,32 +56,32 @@ export class ListAllSalesEntryUseCase implements IListAllSalesEntryUseCase {
   }
   private async createSaleEntry(input: any): Promise<void> {
     // Busca todos os produtos do cliente
-    const products = await this.listAllProductUseCase.execute({ customerId: input.customerId });
+    const productStore = await this.listAllProductStoreUseCase.execute({ customerId: input.customerId });
 
     // Busca os registros da entidade product_store para a loja
     const productStoreEntries = await this.findAllProductStore(input.storeId);
 
     // Cria os lançamentos de venda com os dados do produto + valores de product_store
-    const salesEntries = products.map((product) => {
-      const productStore = productStoreEntries.find((entry) => entry.productId === product.id);
+    const salesEntries = productStore.map((item) => {
+      const productStore = productStoreEntries.find((entry) => entry.productId === item.productId);
 
       if (!productStore) {
-        throw new Error(`ProductStore not found for product ID: ${product.id} and store ID: ${input.storeId}`);
+        throw new Error(`ProductStore not found for product ID: ${item.productId} and store ID: ${input.storeId}`);
       }
 
       return {
         id: undefined,
-        product: product as ProductEntity,
-        productId: product.id,
+        product: { id: item.productId } as ProductEntity,
+        productId: item.productId,
         store: { id: input.storeId } as StoreEntity,
         storeId: input.storeId,
         createdById: input.createdBy,
         createdBy: { id: input.createdBy } as UserEntity,
-        unitCost: productStore.unitCost,
-        quantitySentToStore: 0,
+        unitCost: item.unitCost,
+        quantitySentToStore: item.quantity,
         quantitySold: 0,
         quantityReturned: 0,
-        salePrice: productStore.salePrice,
+        salePrice: item.salePrice,
         date: new Date(),
       };
     });

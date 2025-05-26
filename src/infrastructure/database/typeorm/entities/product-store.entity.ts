@@ -43,3 +43,4 @@ export class ProductStoreEntity extends DefaultEntity {
 }
 
 export type IFilterProductStoreInput = Partial<ProductStoreEntity>;
+export type IUpdateProductStore = Partial<ProductStoreEntity>;
