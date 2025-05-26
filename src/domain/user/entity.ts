@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/common/helpers/uuid';
-import { Role } from '../common/enums/role';
+import { RoleEnum } from '../common/enums/role';
 import { IUserInput } from './interfaces/dtos/user.input';
 
 export class User {
@@ -8,7 +8,7 @@ export class User {
   public readonly email: string;
   public readonly password: string;
   public readonly customerId: string;
-  public role: Role;
+  public role: RoleEnum;
   public readonly isActive: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -27,7 +27,7 @@ export class User {
     this.isActive = isActive ?? true;
   }
 
-  changeRole(role: Role) {
+  changeRoleEnum(role: RoleEnum) {
     this.role = role;
   }
 
@@ -37,6 +37,7 @@ export class User {
       name: this.name,
       email: this.email,
       customerId: this.customerId,
+      isActive: this.isActive,
       role: this.role,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,

@@ -1,10 +1,10 @@
-import { Role } from "@/domain/common/enums/role";
+import { RoleEnum } from "@/domain/common/enums/role";
 
 export interface ICreateUserInput {
   id?: string;
   email: string;
   name: string;
   password: string;
-  role: Role;
+  role: RoleEnum;
   customerId: string;
 }

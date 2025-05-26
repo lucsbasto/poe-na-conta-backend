@@ -1,4 +1,4 @@
-import { Role } from "@/domain/common/enums/role";
+import { RoleEnum } from "@/domain/common/enums/role";
 
 export interface IUpdateUserInput {
   id: string;
@@ -6,7 +6,7 @@ export interface IUpdateUserInput {
   email?: string;
   phone?: string;
   password?: string;
-  role?: Role;
+  role?: RoleEnum;
   storeId?: string;
   customerId?: string;
 }

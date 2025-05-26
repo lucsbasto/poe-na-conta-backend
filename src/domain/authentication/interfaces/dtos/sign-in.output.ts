@@ -1,4 +1,4 @@
-import { Role } from '@/domain/common/enums/role';
+import { RoleEnum } from '@/domain/common/enums/role';
 
 export interface ISignInOutput {
   token: string;
@@ -7,7 +7,7 @@ export interface ISignInOutput {
     id: string;
     email: string;
     name: string;
-    role: Role;
+    role: RoleEnum;
     customerId: string;
   };
 }

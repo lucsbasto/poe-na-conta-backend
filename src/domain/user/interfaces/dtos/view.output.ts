@@ -1,11 +1,12 @@
-import { Role } from '@/domain/common/enums/role';
+import { RoleEnum } from '@/domain/common/enums/role';
 
 export interface IViewUserOutput {
   id: string;
   name: string;
   password?: string;
   email: string;
-  role: Role;
+  isActive: boolean;
+  role: RoleEnum;
   customerId: string;
   createdAt: Date;
   updatedAt: Date;

@@ -1,4 +1,4 @@
-import { Role } from '@/domain/common/enums/role';
+import { RoleEnum } from '@/domain/common/enums/role';
 import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { CustomerEntity } from './customer.entity';
 import { DefaultEntity } from './default.entity';
@@ -19,9 +19,9 @@ export class UserEntity extends DefaultEntity {
   @Column({ default: true, nullable: false, type: 'boolean' })
   isActive!: boolean;
 
-  @Column({ type: 'enum', enum: Role })
+  @Column({ type: 'enum', enum: RoleEnum })
   @Index()
-  role!: Role;
+  role!: RoleEnum;
 
   @OneToMany(
     () => SaleEntryEntity,

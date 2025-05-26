@@ -1,10 +1,10 @@
-import { Role } from '@/domain/common/enums/role';
+import { RoleEnum } from '@/domain/common/enums/role';
 
 export interface JwtPayload {
   sub: string;
   email: string;
   name: string;
-  role: Role;
+  role: RoleEnum;
   customerId: string;
   iat: number;
   exp: number;
