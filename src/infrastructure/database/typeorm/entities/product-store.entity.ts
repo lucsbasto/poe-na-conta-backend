@@ -17,6 +17,13 @@ export class ProductStoreEntity extends DefaultEntity {
   @Column('uuid', { name: 'product_id' })
   productId!: string;
 
+  @Column({ nullable: true, name: 'quantity', type: 'integer' })
+  quantity!: number;
+
+
+  @Column({ default: true, nullable: false, type: 'boolean' })
+  isActive!: boolean;
+
   @ManyToOne(
     () => StoreEntity,
     (store) => store.productStores,

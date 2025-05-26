@@ -12,10 +12,10 @@ export class ProductStoreRepository implements IProductStoreRepository {
   ) {}
 
   async findAll(filter: any): Promise<ProductStoreEntity[]> {
-    return this.repository.find({ where: filter });
+    return this.repository.find({ where: filter, relations: ['product', 'store'] });
   }
 
   async findOne(id: string): Promise<ProductStoreEntity | null> {
-    return this.repository.findOne({ where: { id } });
+    return this.repository.findOne({ where: { id }, relations: ['product', 'store'] });
   }
 }

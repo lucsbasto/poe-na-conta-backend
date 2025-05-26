@@ -10,6 +10,9 @@ export class StoreEntity extends DefaultEntity {
   @Column()
   name!: string;
 
+  @Column({ name: 'customer_id' })
+  customerId!: string;
+
   @ManyToOne(
     () => CustomerEntity,
     (customer) => customer.stores,
